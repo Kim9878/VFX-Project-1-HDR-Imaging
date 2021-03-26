@@ -55,11 +55,30 @@ def reinhard_photoreceptor(hdr_img, f_d=0.8, c=0.8, a=1):
 Fredo Durand, Julie Dorsey, Fast Bilateral Filtering for the Display of High Dynamic Range Images, SIGGRAPH 2002.
 
 """
+def bilateralFilter(log_intensity, filter_size=5):
+    def gaussian(x, mu, sig):
+        return 1. / (np.sqrt(2. * np.pi) * sig) * np.exp(-np.power((x - mu) / sig, 2.) / 2)
+    
+    sig_f, sig_g = 1000., 2000.
+    win_size = filter_size // 2
+    output = np.zeros_like(log_intensity)
+    k = np.zeros_like(log_intensity)
+    for shift_y in range(-win_size, win_size+1):
+        for shift_x in range(-win_size, win_size+1):
+            f = gaussian(np.sqrt(shift_x ** 2 + shift_y ** 2), 0, sig_f)
+            offsets = np.roll(log_intensity, [shift_y, shift_x], axis=[0, 1])
+            g = gaussian(log_intensity-offsets, 0, sig_g)
+            total_weight = f * g
+            output += offsets * total_weight
+            k += total_weight
+    output /= k
+    return output
+
 def durand_bilateral(hdr, compression=0.8, filter_size=5):
     h, w, c = hdr.shape
     intensity = 0.0722 * hdr[:, :, 0] + 0.7152 * hdr[:, :, 1] + 0.2126 * hdr[:, :, 2]
     log_intensity = np.log(intensity)
-    log_large_scale = cv2.bilateralFilter(log_intensity, 5, 15, 15)
+    log_large_scale = bilateralFilter(log_intensity, filter_size)
     log_detail = log_intensity - log_large_scale
     log_output = log_large_scale * compression + log_detail
     ldr = hdr / intensity.reshape([h, w, 1]) * np.exp(log_output).reshape([h, w, 1])
