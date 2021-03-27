@@ -15,9 +15,9 @@ def parseArgse():
     parser.add_argument('--i', type = str, default = './images/1', help='The input image folder path to execute hdr algorithm')
     parser.add_argument('--o', type = str, default = './outputs/1', help='The output image folder path to save results')
     parser.add_argument('--t', type=int, default=0, help='The tone mapping algorithm current uses. default = 0 (Bilateral)')
-    parser.add_argument('--d', type=float, default=0.8, help='')
-    parser.add_argument('--c', type=float, default=0.8, help='')
-    parser.add_argument('--a', type=float, default=1, help='')
+    parser.add_argument('--d', type=float, default=0, help="[-0.8, 0.8]. Parameter of reinhard's tone mapping. It controls intensity. Default = 0")
+    parser.add_argument('--c', type=float, default=0, help="[0.0, 1.0]. Parameter of reinhard's tone mapping. It controls chromatic adaptation. Default = 0")
+    parser.add_argument('--a', type=float, default=0, help="[0.0, 1.0]. Parameter of reinhard's tone mapping. It controls light adaptation. Default = 0")
 
     args = parser.parse_args()
 
