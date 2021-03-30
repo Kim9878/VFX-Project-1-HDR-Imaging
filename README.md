@@ -23,4 +23,4 @@ python3 hdr.py --i ./images/4 --o ./outputs/4 --t 0
 * **c:** [0.0, 1.0]. Parameter of Reinhard's tone mapping. It controls chromatic adaptation. Default is 0
 * **a:** [0.0, 1.0]. Parameter of Reinhard's tone mapping. It controls light adaptation. Default is 0
 
-For detail about our implementation, please check out the [report](https://github.com/Kim9878/VFX-HW1-HDR-Imaging/blob/master/Report.md) page.
+For detail about our implementation, please check out the [report](https://github.com/Kim9878/VFX-Project-1-HDR-Imaging/blob/master/Report.md) page.
