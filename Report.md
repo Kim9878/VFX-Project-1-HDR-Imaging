@@ -50,16 +50,16 @@ Both of the implementation steps are shown below.
 * ### Dynamic Range Reduction Inspired by Photoreceptor Physiology
     This tone-mapping algorithm can be classified into two broad categories: global and local operators.  
     ### Luminance
-    The luminance is computed for creating the tonemapping curve.
+    The luminance is computed for creating the tonemapping curve.  
     <a href="https://www.codecogs.com/eqnedit.php?latex=luminance&space;=&space;0.2125*red&space;&plus;&space;0.7154*green&space;&plus;&space;0.0721*blue" target="_blank"><img src="https://latex.codecogs.com/gif.latex?luminance&space;=&space;0.2125*red&space;&plus;&space;0.7154*green&space;&plus;&space;0.0722*blue" title="luminance = 0.2125*red + 0.7154*green + 0.0722*blue" /></a> 
     ### parameters
     * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;m" title="m" /></a> describes the contrast of the image  
-    * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;f=exp(f')" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;f=exp(f')" title="f=exp(f')" /></a> describes the overall intensity of the image.   
-    * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;c" title="c" /></a> describes Chromatic adaption of the original image.  
-    * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;a" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;a" title="a" /></a> describes light Adaption of the original image.  
+    * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;f=exp(f')" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;f=exp(f')" title="f=exp(f')" /></a> describes the overall intensity of the image  
+    * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;c" title="c" /></a> describes Chromatic adaption of the original image  
+    * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;a" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;a" title="a" /></a> describes light Adaption of the original image  
     ### Global Operator
     The global operator compresses contrasts based on the whole image.  
-    The formula is as below:
+    The formula is as below:  
     
     <a href="https://www.codecogs.com/eqnedit.php?latex=I_G&space;=&space;c*C_a_v&space;&plus;&space;(1-c)*L_a_v&space;" target="_blank"><img src="https://latex.codecogs.com/gif.latex?I_G&space;=&space;c*C_a_v&plus;&space;(1-c)*L_a_v&space;" title="I_G = c*C_a_v + (1-c)*L_a_v" /> ,</a>
     
@@ -71,12 +71,12 @@ Both of the implementation steps are shown below.
     <a href="https://www.codecogs.com/eqnedit.php?latex=I_L&space;=&space;c*PixelValue&space;&plus;&space;(1-c)*L&space;" target="_blank"><img src="https://latex.codecogs.com/gif.latex?I_L&space;=&space;c*PixelValue&plus;&space;(1-c)*L&space;" title="I_L = c*PixelValue + (1-c)*L" /></a> 
     ### Conversion
     The final operator is combined with the two mentioned operators  
-    The formula is as below:
+    The formula is as below:  
     
      <a href="https://www.codecogs.com/eqnedit.php?latex=I_A&space;=&space;a*I_L&space;&plus;&space;(1-a)*I_G&space;" target="_blank"><img src="https://latex.codecogs.com/gif.latex?I_A&space;=&space;a*I_L&plus;&space;(1-a)*I_G&space;" title="I_A = a*I_L + (1-a)*I_G" /></a> 
      
      After we get the final operator, we use it to do the conversion.  
-     The formula is as below:
+     The formula is as below:  
      <a href="https://www.codecogs.com/eqnedit.php?latex=OutputPixel&space;=&space;PixelValue&space;/&space;[PixelValue&plus;&space;(f*I_A)^m&space;]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?OutputPixel&space;=&space;PixelValue&space;/&space;[PixelValue&plus;&space;(f*I_A)^m&space;]" title="OutputPixel = PixelValue / [PixelValue+(f*I_A)^m]" /></a> 
      ### Normalization
     After the mapping of the image, we normalize the color channel to the range of 0~1. And then we convert them to the range of 0~255.
