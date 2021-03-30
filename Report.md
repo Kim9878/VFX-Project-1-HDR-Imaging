@@ -79,7 +79,7 @@ Both of the implementation steps are shown below.
      The formula is as below:  
      <a href="https://www.codecogs.com/eqnedit.php?latex=OutputPixel&space;=&space;PixelValue&space;/&space;[PixelValue&plus;&space;(f*I_A)^m&space;]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?OutputPixel&space;=&space;PixelValue&space;/&space;[PixelValue&plus;&space;(f*I_A)^m&space;]" title="OutputPixel = PixelValue / [PixelValue+(f*I_A)^m]" /></a> 
      ### Normalization
-    After the mapping of the image, we normalize the color channel to the range of 0~1. And then we convert them to the range of 0~255.
+    After the mapping of the image, we normalize the color channel to the range of 0<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\sim" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;\sim" title="\sim" /></a>1. And then we convert them to the range of 0<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\sim" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;\sim" title="\sim" /></a>255.
     
 * ### Fast Bilateral Filtering for the Display of High Dynamic Range Images
 
