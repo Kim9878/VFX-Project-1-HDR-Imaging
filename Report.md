@@ -30,14 +30,15 @@ The number of pixel sampling N is a parameter controlled by user, the default va
 
 ### Recover Response Curve
 Accrording to the paper, we add hat weight function <a href="https://www.codecogs.com/eqnedit.php?latex=w" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w" title="w" /></a> to the objective function, which is used to reduce the effect of the extreme pixel value.   
-The formula is defined as follows:  
+The formula is defined as follows:   
+
 <a href="https://www.codecogs.com/eqnedit.php?latex=w(z)=\begin{cases}&space;z-Z_{min},\space&space;for&space;\space&space;z&space;\le&space;\frac{1}{2}(Z_{min}&plus;Z_{max})\\&space;Z_{max}-z,&space;\space&space;for&space;\space&space;z&space;>&space;\frac{1}{2}(Z_{min}&plus;Z_{max})&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w(z)=\begin{cases}&space;z-Z_{min},\space&space;for&space;\space&space;z&space;\le&space;\frac{1}{2}(Z_{min}&plus;Z_{max})\\&space;Z_{max}-z,&space;\space&space;for&space;\space&space;z&space;>&space;\frac{1}{2}(Z_{min}&plus;Z_{max})&space;\end{cases}" title="w(z)=\begin{cases} z-Z_{min},\space for \space z \le \frac{1}{2}(Z_{min}+Z_{max})\\ Z_{max}-z, \space for \space z > \frac{1}{2}(Z_{min}+Z_{max}) \end{cases}" /></a>  
 
 Then we split the images to R, G, B channels and solve least-square solution separately by constructing optimization matrix <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;Ax&space;=&space;b" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;Ax&space;=&space;b" title="Ax = b" /></a> traught in class. The solution <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;x" title="x" /></a> can be calculated by numpy function : ```np.linalg.lstsq(A, b, rcond=None). ```  
 After solving the equation, response curve is mapped to the top 256 value of vector <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;x" title="x" /></a>. The response curve of R, G, B channels are shown below.
 
 ### Reconstruct Radiance Map
-After colculating response curve of R, G, B channels, we follow the formula as below to reconstruct the log of radiance map:  
+After colculating response curve of R, G, B channels, we follow the formula as below to reconstruct the log of radiance map:   
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;lnE_i&space;=&space;\dfrac{\sum^P_{j=1}w(Z_{ij})(g(Z_{ij})&space;-&space;ln\Delta&space;t_j)}{\sum^P_{j=1}w(Z_{ij})}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;lnE_i&space;=&space;\dfrac{\sum^P_{j=1}w(Z_{ij})(g(Z_{ij})&space;-&space;ln\Delta&space;t_j)}{\sum^P_{j=1}w(Z_{ij})}" title="lnE_i = \dfrac{\sum^P_{j=1}w(Z_{ij})(g(Z_{ij}) - ln\Delta t_j)}{\sum^P_{j=1}w(Z_{ij})}" /></a>
 
@@ -50,7 +51,8 @@ Both of the implementation steps are shown below.
 * ### Dynamic Range Reduction Inspired by Photoreceptor Physiology
     This tone-mapping algorithm can be classified into two broad categories: global and local operators.  
     ### Luminance
-    The luminance is computed for creating the tonemapping curve.  
+    The luminance is computed for creating the tonemapping curve.   
+    
     <a href="https://www.codecogs.com/eqnedit.php?latex=luminance&space;=&space;0.2125*red&space;&plus;&space;0.7154*green&space;&plus;&space;0.0721*blue" target="_blank"><img src="https://latex.codecogs.com/gif.latex?luminance&space;=&space;0.2125*red&space;&plus;&space;0.7154*green&space;&plus;&space;0.0722*blue" title="luminance = 0.2125*red + 0.7154*green + 0.0722*blue" /></a> 
     ### parameters
     * <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;m" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;m" title="m" /></a> describes the contrast of the image  
@@ -76,7 +78,8 @@ Both of the implementation steps are shown below.
      <a href="https://www.codecogs.com/eqnedit.php?latex=I_A&space;=&space;a*I_L&space;&plus;&space;(1-a)*I_G&space;" target="_blank"><img src="https://latex.codecogs.com/gif.latex?I_A&space;=&space;a*I_L&plus;&space;(1-a)*I_G&space;" title="I_A = a*I_L + (1-a)*I_G" /></a> 
      
      After we get the final operator, we use it to do the conversion.  
-     The formula is as below:  
+     The formula is as below:   
+     
      <a href="https://www.codecogs.com/eqnedit.php?latex=OutputPixel&space;=&space;PixelValue&space;/&space;[PixelValue&plus;&space;(f*I_A)^m&space;]" target="_blank"><img src="https://latex.codecogs.com/gif.latex?OutputPixel&space;=&space;PixelValue&space;/&space;[PixelValue&plus;&space;(f*I_A)^m&space;]" title="OutputPixel = PixelValue / [PixelValue+(f*I_A)^m]" /></a> 
      ### Normalization
     After the mapping of the image, we normalize the color channel to the range of 0 to 1. And then we convert them to the range of 0 to 255.
@@ -94,7 +97,8 @@ Both of the implementation steps are shown below.
     
     ### Bilateral Filter
     After finishing intensity calculation, we apply the 5x5 bilateral filter to log intensity to calcalate the large scale intensity.  
-    The bilateral filter function is defined as below:  
+    The bilateral filter function is defined as below:   
+    
     <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;J(x)&space;=&space;\frac{1}{k(x)}*\sum_{x_i&space;\in&space;\xi}f(\parallel&space;x_i&space;-&space;x&space;\parallel)*g(\parallel&space;I(x_i)&space;-&space;I(x)\parallel)*I(x_i)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;J(x)&space;=&space;\frac{1}{k(x)}*\sum_{x_i&space;\in&space;\xi}f(\parallel&space;x_i&space;-&space;x&space;\parallel)*g(\parallel&space;I(x_i)&space;-&space;I(x)\parallel)*I(x_i)" title="J(x) = \frac{1}{k(x)}*\sum_{x_i \in \xi}f(\parallel x_i - x \parallel)*g(\parallel I(x_i) - I(x)\parallel)*I(x_i)" /></a>
     
     The notations are defined as below:  
@@ -113,7 +117,8 @@ Both of the implementation steps are shown below.
     
     ### Normalization & Rescaling
     After getting the tone mapping output, we normalize the output from 0 and 255. However, the normalized output is still too dark, so we rescale the image by the original images' mean.  
-    The formula is as below:  
+    The formula is as below:   
+    
     <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;N(x)&space;=&space;x&space;*&space;Mean(OriginImages)/Mean(Output)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\inline&space;N(x)&space;=&space;x&space;*&space;Mean(OriginImages)/Mean(Output)" title="N(x) = x * Mean(OriginImages)/Mean(Output)" /></a>  
     
     The notations are defined as below:
