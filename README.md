@@ -1,4 +1,4 @@
-# VFX HW 1 HDR Imaging 
+# VFX Project 1 HDR Imaging 
 R09922074 潘奕廷 R09922139 蕭延儒
 
 ## Introduction
