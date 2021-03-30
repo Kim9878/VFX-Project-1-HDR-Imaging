@@ -9,15 +9,15 @@ def parseArgse():
 
     parser.add_argument('--s', type=int, default=2, help='The size of the shift bits use in the MTB function, default = 2')
     parser.add_argument('--l', type=float, default=10, help='The amount of smoothness of hdr function, default = 10')
-    parser.add_argument('--k', type=int, default=5, help='The size of the gaussion filter use in the tonemapping, default = 5')
-    parser.add_argument('--f', type=float, default=0.7, help='The compression factor of tone mapping, default = 0.7')
-    parser.add_argument('--n', type=int, default=50, help='The number of the sample points uses for constructing g curve, default = 50')
+    parser.add_argument('--k', type=int, default=5, help='The size of the gaussian filter use in the tone mapping, default = 5')
+    parser.add_argument('--f', type=float, default=0.7, help="The compression factor of Durand's tone mapping, default = 0.7")
+    parser.add_argument('--n', type=int, default=50, help='The number of the sample points use for constructing response curve, default = 50')
     parser.add_argument('--i', type = str, default = './images/1', help='The input image folder path to execute hdr algorithm')
     parser.add_argument('--o', type = str, default = './outputs/1', help='The output image folder path to save results')
-    parser.add_argument('--t', type=int, default=0, help='The tone mapping algorithm current uses. default = 0 (Bilateral)')
-    parser.add_argument('--d', type=float, default=0, help="[-0.8, 0.8]. Parameter of reinhard's tone mapping. It controls intensity. Default = 0")
-    parser.add_argument('--c', type=float, default=0, help="[0.0, 1.0]. Parameter of reinhard's tone mapping. It controls chromatic adaptation. Default = 0")
-    parser.add_argument('--a', type=float, default=0, help="[0.0, 1.0]. Parameter of reinhard's tone mapping. It controls light adaptation. Default = 0")
+    parser.add_argument('--t', type=int, default=0, help='[0, 1]. The tone mapping algorithm current uses. default = 0 (Bilateral)')
+    parser.add_argument('--d', type=float, default=0, help="[-0.8, 0.8]. Parameter of Reinhard's tone mapping. It controls intensity. Default = 0")
+    parser.add_argument('--c', type=float, default=0, help="[0.0, 1.0]. Parameter of Reinhard's tone mapping. It controls chromatic adaptation. Default = 0")
+    parser.add_argument('--a', type=float, default=0, help="[0.0, 1.0]. Parameter of Reinhard's tone mapping. It controls light adaptation. Default = 0")
 
     args = parser.parse_args()
 
